@@ -16,5 +16,5 @@ copy-resources:
 run:
 	java -cp .:out/:lib/javax.servlet-api-4.0.1.jar:lib/jetty-all-9.4.48.v20220622-uber.jar App
 
-compile-run: compile run
+compile-run: clear compile run
 
