@@ -8,13 +8,13 @@ clear:
 
 compile:
 	find ./src -not -type d | grep \\.java$  > .sources
-	javac -d out/ -cp .:lib/javax.servlet-api-4.0.1.jar:lib/jetty-all-9.4.48.v20220622-uber.jar -sourcepath src/ @.sources
+	javac -d out/ -cp .:lib/* -sourcepath src/main/ @.sources
 
 copy-resources:
 	cp ./src/main/resources/* ./out
 
 run:
-	java -cp .:out/:lib/javax.servlet-api-4.0.1.jar:lib/jetty-all-9.4.48.v20220622-uber.jar App
+	java -cp .:out/:lib/* App
 
 compile-run: compile run
 
