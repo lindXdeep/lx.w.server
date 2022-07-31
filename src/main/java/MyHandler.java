@@ -20,17 +20,13 @@ public class MyHandler extends AbstractHandler {
       HttpServletResponse resp)
       throws IOException, ServletException {
 
-    System.out.println("target     :" + target);
-    System.out.println("baseRequest:" + baseReq.getRequestURI());
-    System.out.println("request    :" + req.getRequestURI());
-
     resp.setContentType("text/html; charset=utf-8");
     resp.setStatus(HttpServletResponse.SC_OK);
-
+    
+    baseReq.setHandled(true);
+    
     PrintWriter out = resp.getWriter();
     out.println("<h1>Hello world!</h1>");
-
-    baseReq.setHandled(true);
 
   }
 }
