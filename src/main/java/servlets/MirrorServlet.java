@@ -20,6 +20,9 @@ public class MirrorServlet extends HttpServlet {
     resp.setContentType("text/html;charset=utf-8");
     resp.setStatus(HttpServletResponse.SC_OK);
 
-    resp.getWriter().println("Mirror");
+    String value = req.getParameter("key");
+
+    resp.getWriter().println(value != null ? value : "");
+
   }
 }
