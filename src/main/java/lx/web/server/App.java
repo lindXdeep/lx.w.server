@@ -1,10 +1,10 @@
-import java.net.InetSocketAddress;
+package lx.web.server;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import servlets.MirrorServlet;
+import lx.web.server.servlets.MirrorServlet;
 
 /**
  * App
@@ -16,7 +16,6 @@ public class App {
   public static void main(String[] args) throws Exception {
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-
     context.addServlet(new ServletHolder(new MirrorServlet()), "/mirror");
 
     Server server = new Server(port);

@@ -23,10 +23,18 @@ jar:
 	jar cvfe bin/App.jar App -C out/ .
 
 run:
-	java -cp .:out/:lib/* App
+	@if [ -f bin/App.jar ]; then\
+		java -cp .:lib/*:bin/* App;\
+	else\
+		java -cp .:out/:lib/* App;\
+	fi
 
-run-jar:
-	java -cp .:lib/*:bin/* App
+assembly:
+	mvn compile assembly:single
+
+run-assembly:
+	java -jar target/server.jar
+
 
 compile-run: clean compile run
 

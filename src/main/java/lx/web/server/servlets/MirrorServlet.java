@@ -1,4 +1,4 @@
-package servlets;
+package lx.web.server.servlets;
 
 import java.io.IOException;
 
