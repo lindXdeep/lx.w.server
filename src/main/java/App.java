@@ -1,28 +1,18 @@
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.servlet.ServletHandler;
 
-/**
- * App
- */
 public class App {
-
-  public static String webdir = "src/main/webapp";
-  public static String descriptor = webdir + "/WEB-INF/web.xml";
-
   public static void main(String[] args) throws Exception {
 
+    // ServletHandler - простой контекстный обработчик через сервлет
+    ServletHandler sh = new ServletHandler();
+
     Server server = new Server(8080);
+    server.setHandler(sh); // регистрируем на сервере ServletHandler
 
-    WebAppContext wc = new WebAppContext();
-    wc.setContextPath("/myapp");
-    wc.setDescriptor(descriptor); // deployment descriptor
-    wc.setResourceBase(webdir);   // document root for the static resources for the context. 
-    wc.setParentLoaderPriority(true);
-
-    server.setHandler(wc);        // The handler is set for the context handler object.
-
-    server.dumpStdErr();
-
+    // Маппим путь которому будет соответвоать необратобанный сервлет
+    // Это не настроенный с помощью @WebServlet или web.xml или др. способом.
+    sh.addServletWithMapping(MyServlet.class, "/*");
 
     server.start();
     server.join();
