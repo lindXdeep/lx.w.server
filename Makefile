@@ -6,7 +6,7 @@ look:
 	lsof -i:8080
 
 clean:
-	rm -Rfv ./out .sources
+	rm -Rfv ./out ./bin .sources
 	find . -type f -name "*.swp" -exec rm {} \;
 
 compile:
@@ -16,8 +16,17 @@ compile:
 copy-resources:
 	cp ./src/main/resources/* ./out
 
+jar:
+	@if [ ! -d "./bin" ]; then\
+		mkdir bin;\
+	fi
+	jar cvfe bin/App.jar App -C out/ .
+
 run:
 	java -cp .:out/:lib/* App
+
+run-jar:
+	java -cp .:lib/*:bin/* App
 
 compile-run: clean compile run
 
