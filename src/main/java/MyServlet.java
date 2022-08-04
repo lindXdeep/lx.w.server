@@ -5,15 +5,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * MyServlet
- */
 public class MyServlet extends HttpServlet {
+
+
+  MyServlet
 
   @Override
   protected void doGet(HttpServletRequest req,
-                       HttpServletResponse resp)
-                       throws ServletException, IOException {
+      HttpServletResponse resp)
+      throws ServletException, IOException {
 
     resp.setContentType("text/html");
     resp.setStatus(HttpServletResponse.SC_OK);
