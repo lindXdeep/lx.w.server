@@ -1,21 +1,27 @@
+import java.net.InetSocketAddress;
+
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 
+import servlets.MirrorServlet;
+
+/**
+ * App
+ */
 public class App {
+
+  private static int port = 8080;
+
   public static void main(String[] args) throws Exception {
 
-    ServletContextHandler sch = new ServletContextHandler(ServletContextHandler.SESSIONS);
-    sch.setContextPath("/");
-    sch.setResourceBase(System.getProperty("java.io.tmpdir"));
+    ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
+    context.addServlet(MirrorServlet.class, "/mirror");
 
-    Server server = new Server(8080);
-    server.setHandler(sch); // регистрируем на сервере ServletContextHandler
-
-    sch.addServlet(DefaultServlet.class, "/");
-    sch.addServlet(MyServlet.class, "/hello");
+    Server server = new Server(port);
+    server.setHandler(context);
 
     server.start();
+    System.out.println("Server started!");
     server.join();
   }
 }
