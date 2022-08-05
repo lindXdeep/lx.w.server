@@ -8,6 +8,7 @@ look:
 clean:
 	rm -Rfv ./out ./bin .sources
 	find . -type f -name "*.swp" -exec rm {} \;
+	mvn clean
 
 compile:
 	find ./src -not -type d | grep \\.java$  > .sources
