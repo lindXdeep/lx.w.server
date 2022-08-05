@@ -20,13 +20,13 @@ jar:
 	@if [ ! -d "./bin" ]; then\
 		mkdir bin;\
 	fi
-	jar cvfe bin/App.jar App -C out/ .
+	jar cvfe bin/App.jar lx.web.server.App -C out/ .
 
 run:
 	@if [ -f bin/App.jar ]; then\
-		java -cp .:lib/*:bin/* App;\
+		java -cp .:lib/*:bin/* lx.web.server.App;\
 	else\
-		java -cp .:out/:lib/* App;\
+		java -cp .:out/:lib/* lx.web.server.App;\
 	fi
 
 assembly:
