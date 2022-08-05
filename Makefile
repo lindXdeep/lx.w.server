@@ -30,7 +30,7 @@ run:
 	fi
 
 assembly:
-	mvn compile assembly:single
+	./mvnw compile assembly:single
 
 run-assembly:
 	java -jar target/server.jar
