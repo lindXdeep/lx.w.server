@@ -9,7 +9,7 @@ public class App {
 
     Server server = new Server(8080);
 
-    server.setHandler(new ProcHanler());
+    server.setHandler(new MyHanler());
 
     server.start();
     server.join();
