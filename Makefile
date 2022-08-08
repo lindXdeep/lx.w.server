@@ -8,6 +8,7 @@ look:
 clean:
 	rm -Rfv ./out ./bin .sources
 	find . -type f -name "*.swp" -exec rm {} \;
+	find . -type f -name "*.swo" -exec rm {} \;
 	mvn clean
 
 compile:
@@ -35,7 +36,6 @@ assembly:
 
 run-assembly:
 	java -jar target/server.jar
-
 
 compile-run: clean compile run
 
