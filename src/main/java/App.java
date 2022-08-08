@@ -1,27 +1,18 @@
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletHandler;
+import org.eclipse.jetty.servlet.DefaultServlet;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 
-/**
- * App
- */
 public class App {
-
   public static void main(String[] args) throws Exception {
 
-    ResourceHandler rh = new ResourceHandler();
-    rh.setDirectoriesListed(true);
-    rh.setWelcomeFiles(new String[] { "index.jsp" }); // файл кторый должен быть предоставлен запрашивающей стороне
-    rh.setResourceBase("src/main/webapp");
-
-    ContextHandler ch = new ContextHandler(); // используется только для ответа на запросы соответствующие URI
-    ch.setContextPath("/hello");
-    ch.setHandler(rh);
+    ServletContextHandler sch = new ServletContextHandler(ServletContextHandler.SESSIONS);
+    sch.setContextPath("/");
+    sch.setResourceBase(System.getProperty("java.io.tmpdir"));
+    sch.addServlet(DefaultServlet.class, "/");
+    sch.addServlet(MyServlet.class, "/hello");
 
     Server server = new Server(8080);
-    server.setHandler(ch);
-    server.setHandler(rh);
+    server.setHandler(sch); // регистрируем на сервере ServletContextHandler
 
     server.start();
     server.join();
