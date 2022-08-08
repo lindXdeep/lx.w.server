@@ -1,4 +1,5 @@
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletHandler;
 
 /**
  * App
@@ -7,9 +8,11 @@ public class App {
 
   public static void main(String[] args) throws Exception {
 
-    Server server = new Server(8080);
+    ServletHandler sh = new ServletHandler();
+    sh.addServletWithMapping(MyServlet.class, "/");
 
-    server.setHandler(new MyHanler());
+    Server server = new Server(8080);
+    server.setHandler(sh);
 
     server.start();
     server.join();
