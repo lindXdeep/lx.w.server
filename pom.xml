@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -24,6 +24,19 @@
 
   <name>lx.web-server</name>
   <url>https://github.com/lindXdeep/lx.w.server</url>
+
+  <developers>
+    <developer>
+      <id>lindx</id>
+      <name>Linder Igor</name>
+      <email>linder.igor@gmail.com</email>
+      <url>https://github.com/lindXdeep/lx.w.server</url>
+      <timezone>+3</timezone>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+    </developer>
+  </developers>
 
   <dependencies>
 
@@ -82,9 +95,9 @@
 
         </configuration>
       </plugin>
-      <!--mvn assembly:single -->
 
     </plugins>
 
   </build>
 </project>
+
