@@ -1,11 +1,20 @@
 package lx.web.server.dao;
 
+import lx.web.server.model.User;
+
 /**
  * AccountService
  */
 public interface UserDao {
 
-  boolean signin(String login, String password);
+  public void addNewUser(User User);
 
-  void signup(String login, String password);
+  public User getUserByLogIn(String login);
+
+  public User getUserBySessionId(String sessionId);
+
+  public void addSession(String sessionId, User user);
+
+  public void deleteSession(String sessionId);
+
 }

@@ -1,9 +1,6 @@
 .DEFAULT_GOAL := compile-run
 
-.PHONY: all test clean              # A phony target is one that is not really the name of a file; rather it is just a name for a recipe to be executed when you make an explicit request.
-
-look:
-	lsof -i:8080
+.PHONY: all test clean kill     # A phony target is one that is not really the name of a file; rather it is just a name for a recipe to be executed when you make an explicit request.
 
 clean:
 	rm -Rfv ./out ./bin .sources

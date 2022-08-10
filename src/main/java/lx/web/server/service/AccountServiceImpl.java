@@ -2,6 +2,7 @@ package lx.web.server.service;
 
 import lx.web.server.dao.UserDao;
 import lx.web.server.dao.UserDaoImpl;
+import lx.web.server.model.User;
 
 /**
  * AccountServiceImpl
@@ -11,14 +12,33 @@ public class AccountServiceImpl implements AccountService {
   private UserDao userDao = new UserDaoImpl();
 
   @Override
-  public boolean signin(String login, String password) {
+  public void addNewUser(final User User) {
 
-    return userDao.signin(login, password);
+    userDao.addNewUser(User);
   }
 
   @Override
-  public void signup(String login, String password) {
+  public User getUserByLogIn(final String login) {
 
-    userDao.signup(login, password);
+    return userDao.getUserByLogIn(login);
+  }
+
+  @Override
+  public User getUserBySessionId(final String sessionId) {
+
+    return userDao.getUserByLogIn(sessionId);
+  }
+
+  @Override
+  public void addSession(final String sessionId, final User user) {
+
+    userDao.addSession(sessionId, user);
+  }
+
+  @Override
+  public void deleteSession(final String sessionId) {
+
+    userDao.deleteSession(sessionId);
   }
 }
+

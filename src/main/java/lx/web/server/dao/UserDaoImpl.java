@@ -10,18 +10,36 @@ import lx.web.server.model.User;
  */
 public class UserDaoImpl implements UserDao {
 
-  private Map<String, User> signedUpUsers = new ConcurrentHashMap<>();
+  private Map<String, User> userlogged = new ConcurrentHashMap<>();
+  private Map<String, User> userSession = new ConcurrentHashMap<>();
 
   @Override
-  public boolean signin(final String login, final String password) {
+  public void addNewUser(final User user) {
 
-    User user = signedUpUsers.get(login);
-    return user != null && user.getPassword().equals(password);
+    userlogged.put(user.getLogin(), user);
   }
 
   @Override
-  public void signup(final String login, final String password) {
+  public User getUserByLogIn(final String login) {
 
-    signedUpUsers.put(login, new User(login, password));
+    return userlogged.get(login);
+  }
+
+  @Override
+  public User getUserBySessionId(final String sessionId) {
+
+    return userSession.get(sessionId);
+  }
+
+  @Override
+  public void addSession(final String sessionId, final User user) {
+
+    userSession.put(sessionId, user);
+  }
+
+  @Override
+  public void deleteSession(final String sessionId) {
+
+    userSession.remove(sessionId);
   }
 }
