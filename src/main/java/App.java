@@ -1,13 +1,12 @@
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.util.List;
 
 /**
  * App
  */
 public class App {
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, InterruptedException {
 
     Runnable server = () -> {
       try {
@@ -16,12 +15,6 @@ public class App {
         e.printStackTrace();
       }
     };
-
-    try {
-      Thread.sleep(500);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
 
     Runnable client = () -> {
       try {
@@ -32,14 +25,15 @@ public class App {
     };
 
     new Thread(server).start();
-    new Thread(client).start();
-  
 
-
-    
+    Thread.sleep(1000);
     
 
 
+
+    for (int i = 0; i < 100; i++) {
+      new Thread(client).start();
+    }
 
 
 

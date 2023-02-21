@@ -16,7 +16,7 @@ public class Client {
     InetAddress inetAddress = InetAddress.getByName(null);
     Socket socket = new Socket(inetAddress, PORT);
 
-    System.out.println("Client at: " + socket);
+    System.out.println("Client started at: " + socket);
 
     try (BufferedReader in = new BufferedReader(
         new InputStreamReader(
