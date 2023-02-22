@@ -8,11 +8,7 @@ public class App {
   public static void main(String[] args) throws IOException, InterruptedException {
 
     Runnable server = () -> {
-      try {
-        new Server();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
+      new Server();
     };
 
     Runnable client = () -> {

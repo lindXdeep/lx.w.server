@@ -5,23 +5,49 @@ import java.net.SocketException;
 
 public class Server {
 
-  private DatagramSocket socket;
+  private static final int PORT = 8080;
+  private byte[] buf = new byte[256];
+
   private DatagramPacket packet;
-  private byte[] buf;
 
-  public Server() throws SocketException, IOException {
+  public Server() {
 
-    socket = new DatagramSocket(8080);             // открываем сокет и слушаем 8080 порт
-    System.out.println("waiting data...");
+    try (DatagramSocket socket = new DatagramSocket(PORT)) {
 
-    while (true) {
+      System.out.println("Server started on: " + PORT);
 
-      this.clear();
+      while (true) {
 
-      socket.receive(packet);                      // ожидаем пакеты от клиента
-      buf = packet.getData();                      // Как только пакеты придут,
-      String msg = new String(buf, 0, buf.length); // вытаскиеваем данные из пакета
-      System.out.println(msg);                     // и выводим в консоль
+        this.clear(); // очищаем buffer и packet
+
+        try {
+          socket.receive(packet); // ждем пакеты
+          buf = packet.getData(); // получаем данные
+          String msg = new String(buf, 0, buf.length);
+
+          System.out.print(":> " + msg);
+
+          // Сообщение для ответа клиенту
+          String response = "get data: " + msg + " from " +
+            packet.getAddress() + ":" + packet.getPort();
+
+          // перегоняем сообщение в баыйты
+          buf = msg.getBytes();
+
+          // Формируем покет для отпроавки клиенту
+          packet = new DatagramPacket(buf, buf.length,
+                                      packet.getAddress(),
+                                      packet.getPort());
+
+          // и отправляем клиенту
+          socket.send(packet);
+
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    } catch (SocketException e) {
+      e.printStackTrace();
     }
   }
 
