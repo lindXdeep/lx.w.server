@@ -22,26 +22,7 @@ public class Server {
 
         try {
           socket.receive(packet); // ждем пакеты
-          buf = packet.getData(); // получаем данные
-          String msg = new String(buf, 0, buf.length);
-
-          System.out.print(":> " + msg);
-
-          // Сообщение для ответа клиенту
-          String response = "get data: " + msg + " from " +
-            packet.getAddress() + ":" + packet.getPort();
-
-          // перегоняем сообщение в баыйты
-          buf = msg.getBytes();
-
-          // Формируем покет для отпроавки клиенту
-          packet = new DatagramPacket(buf, buf.length,
-                                      packet.getAddress(),
-                                      packet.getPort());
-
-          // и отправляем клиенту
-          socket.send(packet);
-
+          new Handler(packet, socket).start();
         } catch (IOException e) {
           e.printStackTrace();
         }

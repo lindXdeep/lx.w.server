@@ -5,6 +5,8 @@ import java.io.IOException;
  */
 public class App {
 
+  private static int id;
+
   public static void main(String[] args) throws IOException, InterruptedException {
 
     Runnable server = () -> {
@@ -12,8 +14,8 @@ public class App {
     };
 
     Runnable client = () -> {
-      try {
-        new Client();
+      try {      
+        new Client(id++);
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -21,9 +23,10 @@ public class App {
 
     new Thread(server).start();
 
-   Thread.sleep(1000);
+    Thread.sleep(1000);
 
-   new Thread(client).start();
-
+    for (int i = 0; i < 10000; i++) {
+      new Thread(client).start();
+    }
   }
 }
