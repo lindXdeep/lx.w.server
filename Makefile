@@ -11,3 +11,12 @@ run:
 
 compile-run: compile run
 
+killer:
+	kill -9 $$(lsof -t -i:8080)
+
+server:
+	java -cp .:out/ Server
+
+client:
+	java -cp .:out/ Client
+

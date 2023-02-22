@@ -8,6 +8,10 @@ public class Server {
   private static final int PORT = 8080;
   private byte[] buf = new byte[256];
 
+  public static void main(String[] args) {
+    new Server();
+  }
+
   private DatagramPacket packet;
 
   public Server() {

@@ -14,7 +14,11 @@ public class Client {
   private byte[] buf = new byte[256];
   private DatagramPacket packet;
 
-  public Client(final int id) throws UnknownHostException {
+  public static void main(String[] args) throws UnknownHostException {
+    new Client();
+  }
+
+  public Client() throws UnknownHostException {
 
     iAdd = InetAddress.getByName("127.0.0.1");
 
