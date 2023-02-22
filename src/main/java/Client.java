@@ -1,41 +1,36 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.Socket;
 
 public class Client {
 
-  private static int PORT = 8080;
+  private static final int PORT = 8080;
+  private DatagramSocket socket;
+  private DatagramPacket packet;
+  private InetAddress iAdd;
+
+  private byte[] buf = new byte[256];
+  private BufferedReader in;
 
   public Client() throws IOException {
 
-    InetAddress inetAddress = InetAddress.getByName(null);
-    Socket socket = new Socket(inetAddress, PORT);
+    iAdd = InetAddress.getByName("127.0.0.1");
+    socket = new DatagramSocket();
 
-    System.out.println("Client started at: " + socket);
+    // Читаем даннные с косоли в буффер
+    in = new BufferedReader(new InputStreamReader(System.in));
 
-    try (BufferedReader in = new BufferedReader(
-        new InputStreamReader(
-            socket.getInputStream()));
+    while (true) {
 
-        PrintWriter out = new PrintWriter(
-            new BufferedWriter(
-                new OutputStreamWriter(
-                    socket.getOutputStream())),
-            true)) {
+      String msg = in.readLine();
+      buf = msg.getBytes();
 
-      String[] msg = { "hey1", "hey2", "hey3", "END" };
-      for (String m : msg) {
-        out.println(m);
-        System.out.println("Response: " + in.readLine());
-      }
-
-    } catch (IOException e) {
-      e.printStackTrace();
+      // отправляем данные
+      packet = new DatagramPacket(buf, buf.length, iAdd, PORT);
+      socket.send(packet);
     }
   }
 }

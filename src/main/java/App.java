@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.util.List;
 
 /**
  * App
@@ -26,16 +25,9 @@ public class App {
 
     new Thread(server).start();
 
-    Thread.sleep(1000);
-    
+   Thread.sleep(1000);
 
-
-
-    for (int i = 0; i < 100; i++) {
-      new Thread(client).start();
-    }
-
-
+   new Thread(client).start();
 
   }
 }

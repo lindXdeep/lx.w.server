@@ -1,28 +1,32 @@
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.SocketException;
 
 public class Server {
 
-  private static final int PORT = 8080;
+  private DatagramSocket socket;
+  private DatagramPacket packet;
+  private byte[] buf;
 
-  public Server() throws IOException {
+  public Server() throws SocketException, IOException {
 
-    ServerSocket serverSocket = new ServerSocket(PORT);    // Создаем серверный сокет и вешаем на порт
-    System.out.println("Server started: " + serverSocket);
+    socket = new DatagramSocket(8080);             // открываем сокет и слушаем 8080 порт
+    System.out.println("waiting data...");
 
-    try {
-      while (true) {
-        Socket socket = serverSocket.accept();             // Блокируется до возникновения нового соединения
-        try {                                              // Как только клиент подключился
-          new Connection(socket).start();                  // создаем сервер в отдельном потоке
-        } catch (IOException e) {                          // Если завершится неудачей, закрывается сокет, или, поток закроет его.
-          socket.close();
-        }
-      }
-    } catch (IOException e) {
-      System.out.println("Server offline...");
-      serverSocket.close();
+    while (true) {
+
+      this.clear();
+
+      socket.receive(packet);                      // ожидаем пакеты от клиента
+      buf = packet.getData();                      // Как только пакеты придут,
+      String msg = new String(buf, 0, buf.length); // вытаскиеваем данные из пакета
+      System.out.println(msg);                     // и выводим в консоль
     }
+  }
+
+  private void clear() {
+    this.buf = new byte[256];
+    this.packet = new DatagramPacket(buf, buf.length);
   }
 }
